@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut } from "lucide-react";
+import { LogOut, User2 } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -25,6 +25,8 @@ import {
   AlertDialogTrigger,
 } from "@radix-ui/react-alert-dialog";
 import Loader from "@/components/ui/loader";
+import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
+import Link from "next/link";
 
 export type LoggedInButtonProps = {
   user: Session["user"];
@@ -55,6 +57,13 @@ const LoggedInButton = (props: LoggedInButtonProps) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
+          <DropdownMenuItem asChild>
+            <Link href="/account">
+              <User2 className="mr-2" size={12} />
+              Account
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
           <AlertDialogTrigger asChild>
             <DropdownMenuItem>
               <LogOut className="mr-2" size={12} />
