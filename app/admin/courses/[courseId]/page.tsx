@@ -45,10 +45,10 @@ export default async function CoursePage({
       </LayoutHeader>
       <LayoutContent className="flex gap-4 lg:flex-row flex-col">
         <Card className="flex-[2]">
+          <CardHeader>
+            <CardTitle>Users</CardTitle>
+          </CardHeader>
           <CardContent>
-            <CardHeader>
-              <CardTitle>Users</CardTitle>
-            </CardHeader>
             <Table>
               <TableHeader>
                 <TableRow>
