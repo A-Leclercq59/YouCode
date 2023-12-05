@@ -9,7 +9,7 @@ export const getAdminCourse = async ({
   userId: string;
   userPage: number;
 }) => {
-  const courses = await db.course.findUnique({
+  const course = await db.course.findUnique({
     where: {
       creatorId: userId,
       id: courseId,
@@ -28,8 +28,8 @@ export const getAdminCourse = async ({
           user: {
             select: {
               email: true,
-              image: true,
               id: true,
+              image: true,
             },
           },
         },
@@ -43,7 +43,7 @@ export const getAdminCourse = async ({
     },
   });
 
-  const users = courses?.users.map((user) => {
+  const users = course?.users.map((user) => {
     return {
       canceled: user.canceledAt ? true : false,
       ...user.user,
@@ -51,7 +51,7 @@ export const getAdminCourse = async ({
   });
 
   return {
-    ...courses,
+    ...course,
     users,
   };
 };
