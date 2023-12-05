@@ -1,3 +1,6 @@
+import Link from "next/link";
+
+import { buttonVariants } from "@/components/ui/button";
 import {
   Layout,
   LayoutContent,
@@ -15,11 +18,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Typography } from "@/components/ui/typography";
-import { getRequiredAuthSession } from "@/lib/auth";
-import Link from "next/link";
-import { getAdminCourse } from "./course.query";
 import CoursePaginationButton from "@/features/pagination/PaginationButton";
-import { buttonVariants } from "@/components/ui/button";
+import { getRequiredAuthSession } from "@/lib/auth";
+import { getAdminCourse } from "./admin-course.query";
 
 export default async function CoursePage({
   params,

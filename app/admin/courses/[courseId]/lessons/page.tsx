@@ -4,29 +4,18 @@ import {
   LayoutHeader,
   LayoutTitle,
 } from "@/components/layout/layout";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Typography } from "@/components/ui/typography";
 import { getRequiredAuthSession } from "@/lib/auth";
-import Link from "next/link";
-import CoursePaginationButton from "@/features/pagination/PaginationButton";
-import { buttonVariants } from "@/components/ui/button";
-import { getCourseLessons } from "./lessons.query";
 import { notFound } from "next/navigation";
-import LessonItem from "./LessonItem";
+import { AdminLessonItem } from "./AdminLessonItem";
+import { getCourseLessons } from "./lessons.query";
 
 export default async function CourseLessonsPage({
   params,
 }: {
-  params: { courseId: string };
+  params: {
+    courseId: string;
+  };
 }) {
   const session = await getRequiredAuthSession();
 
@@ -44,14 +33,14 @@ export default async function CourseLessonsPage({
       <LayoutHeader>
         <LayoutTitle>Lessons · {course.name}</LayoutTitle>
       </LayoutHeader>
-      <LayoutContent className="flex gap-4 lg:flex-row flex-col">
+      <LayoutContent className="flex flex-col gap-4 lg:flex-row">
         <Card className="flex-[2]">
           <CardHeader>
             <CardTitle>Lessons</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
             {course.lessons.map((lesson) => (
-              <LessonItem key={lesson.id} lesson={lesson} />
+              <AdminLessonItem key={lesson.id} lesson={lesson} />
             ))}
           </CardContent>
         </Card>
