@@ -71,7 +71,7 @@ const FormSettings = ({
           control={form.control}
           name="image"
           render={({ field }) => (
-            <FormItem className="space-y-1">
+            <FormItem>
               <FormLabel>Image Url</FormLabel>
               <FormControl>
                 <Input
@@ -88,7 +88,7 @@ const FormSettings = ({
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem className="space-y-1">
+            <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input
