@@ -3,12 +3,15 @@ import {
   LayoutContent,
   LayoutHeader,
   LayoutTitle,
+  LayoutActions,
 } from "@/components/layout/layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getRequiredAuthSession } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import { LessonDetail } from "./form/LessonDetailsForm";
 import { getAdminLesson } from "./lesson.query";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 
 export default async function CourseLessonsPage({
   params,
@@ -30,6 +33,17 @@ export default async function CourseLessonsPage({
       <LayoutHeader>
         <LayoutTitle>{lesson.name}</LayoutTitle>
       </LayoutHeader>
+      <LayoutActions>
+        <Link
+          className={buttonVariants({
+            size: "sm",
+            variant: "secondary",
+          })}
+          href={`/admin/courses/${lesson.courseId}/lessons`}
+        >
+          Back
+        </Link>
+      </LayoutActions>
       <LayoutContent className="flex flex-col gap-4 lg:flex-row">
         <Card className="flex-[2]">
           <CardHeader>

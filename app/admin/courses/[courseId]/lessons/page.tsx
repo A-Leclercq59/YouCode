@@ -6,9 +6,13 @@ import {
 } from "@/components/layout/layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getRequiredAuthSession } from "@/lib/auth";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { AdminLessonItem } from "./AdminLessonItem";
 import { getCourseLessons } from "./lessons.query";
+import { SubmitButton } from "@/components/form/SubmitButton";
+import { db } from "@/lib/prisma";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 
 export default async function CourseLessonsPage({
   params,
@@ -44,6 +48,12 @@ export default async function CourseLessonsPage({
             ))}
           </CardContent>
         </Card>
+        <Link
+          href={`/admin/courses/${params.courseId}/lessons/new`}
+          className={buttonVariants({ variant: "secondary" })}
+        >
+          Create Lesson
+        </Link>
       </LayoutContent>
     </Layout>
   );
