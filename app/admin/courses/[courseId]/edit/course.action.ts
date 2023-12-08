@@ -14,7 +14,7 @@ const CourseActionEditProps = z.object({
 export const courseActionEdit = authenticatedAction(
   CourseActionEditProps,
   async (props, { userId }) => {
-    await db.course.update({
+    const course = await db.course.update({
       where: {
         id: props.courseId,
         creatorId: userId,
@@ -22,6 +22,23 @@ export const courseActionEdit = authenticatedAction(
       data: props.data,
     });
 
-    return "Course updated successfully";
+    return { message: "Course updated successfully", course };
+  }
+);
+
+export const courseActionCreate = authenticatedAction(
+  CourseFormSchema,
+  async (props, { userId }) => {
+    const course = await db.course.create({
+      data: {
+        ...props,
+        creatorId: userId,
+      },
+    });
+
+    return {
+      message: "Course created successfully",
+      course,
+    };
   }
 );

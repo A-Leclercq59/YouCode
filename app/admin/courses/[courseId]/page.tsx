@@ -42,7 +42,9 @@ export default async function CoursePage({
   return (
     <Layout>
       <LayoutHeader>
-        <LayoutTitle>Courses</LayoutTitle>
+        <LayoutTitle>
+          <Link href="/admin/courses">Courses</Link>
+        </LayoutTitle>
       </LayoutHeader>
       <LayoutContent className="flex gap-4 lg:flex-row flex-col">
         <Card className="flex-[2]">
