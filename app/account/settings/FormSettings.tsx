@@ -16,8 +16,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { updateUser } from "./actions";
-import { formSchemaUpdateUser } from "@/lib/schema";
+import { updateUser } from "./settings.actions";
+import { formSchemaUpdateUser } from "./updateUser.schema";
 import { CheckCircle } from "lucide-react";
 
 const FormSettings = ({
