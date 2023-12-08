@@ -23,16 +23,20 @@ import {
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { lessonActionEditDetails } from "../lesson.action";
+import { lessonActionCreate, lessonActionEditDetails } from "../lesson.action";
 import { LESSON_STATE, LessonDetailSchema } from "./lesson.schema";
 
 export type LessonDetailFormProps = {
-  defaultValue: LessonDetailSchema & {
+  courseId?: string;
+  defaultValue?: LessonDetailSchema & {
     id: string;
   };
 };
 
-export const LessonDetail = ({ defaultValue }: LessonDetailFormProps) => {
+export const LessonDetail = ({
+  courseId,
+  defaultValue,
+}: LessonDetailFormProps) => {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof LessonDetailSchema>>({
@@ -43,10 +47,15 @@ export const LessonDetail = ({ defaultValue }: LessonDetailFormProps) => {
   const onSubmit: SubmitHandler<z.infer<typeof LessonDetailSchema>> = async (
     values
   ) => {
-    const { data, serverError } = await lessonActionEditDetails({
-      lessonId: defaultValue.id,
-      data: values,
-    });
+    const { data, serverError } = defaultValue?.id
+      ? await lessonActionEditDetails({
+          lessonId: defaultValue.id,
+          data: values,
+        })
+      : await lessonActionCreate({
+          courseId: courseId || "",
+          data: values,
+        });
 
     if (data) {
       toast.success(data.message);
