@@ -7,10 +7,9 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getRequiredAuthSession } from "@/lib/auth";
 import { notFound, redirect } from "next/navigation";
-import { AdminLessonItem } from "./AdminLessonItem";
+import { AdminLessonSortable } from "./AdminLessonSortable";
 import { getCourseLessons } from "./lessons.query";
 import { SubmitButton } from "@/components/form/SubmitButton";
-import { db } from "@/lib/prisma";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 
@@ -43,9 +42,7 @@ export default async function CourseLessonsPage({
             <CardTitle>Lessons</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
-            {course.lessons.map((lesson) => (
-              <AdminLessonItem key={lesson.id} lesson={lesson} />
-            ))}
+            <AdminLessonSortable items={course.lessons} />
           </CardContent>
         </Card>
         <Link
