@@ -10,11 +10,6 @@ const LessonActionEditDetailsSchema = z.object({
   data: LessonDetailSchema,
 });
 
-const LessonActionCreateSchema = z.object({
-  courseId: z.string(),
-  data: LessonDetailSchema,
-});
-
 export const lessonActionEditDetails = authenticatedAction(
   LessonActionEditDetailsSchema,
   async (props, { userId }) => {
@@ -34,6 +29,11 @@ export const lessonActionEditDetails = authenticatedAction(
     };
   }
 );
+
+const LessonActionCreateSchema = z.object({
+  courseId: z.string(),
+  data: LessonDetailSchema,
+});
 
 export const lessonActionCreate = authenticatedAction(
   LessonActionCreateSchema,
@@ -58,6 +58,33 @@ export const lessonActionCreate = authenticatedAction(
 
     return {
       message: "Lesson created successfully",
+      lesson,
+    };
+  }
+);
+
+const LessonActionEditContentSchema = z.object({
+  lessonId: z.string(),
+  markdown: z.string(),
+});
+
+export const lessonActionEditContent = authenticatedAction(
+  LessonActionEditContentSchema,
+  async ({ lessonId, markdown }, { userId }) => {
+    const lesson = await db.lesson.update({
+      where: {
+        id: lessonId,
+        course: {
+          creatorId: userId,
+        },
+      },
+      data: {
+        content: markdown,
+      },
+    });
+
+    return {
+      message: "Lesson updated successfully",
       lesson,
     };
   }
