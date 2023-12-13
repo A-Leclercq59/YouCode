@@ -1,6 +1,13 @@
 import Link from "next/link";
+import { Ban, Menu } from "lucide-react";
 
-import { buttonVariants } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Layout,
   LayoutContent,
@@ -9,6 +16,7 @@ import {
 } from "@/components/layout/layout";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableBody,
@@ -57,6 +65,8 @@ export default async function CoursePage({
                 <TableRow>
                   <TableHead>Image</TableHead>
                   <TableHead>Name</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="text-end">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -81,6 +91,26 @@ export default async function CoursePage({
                       >
                         {user.email}
                       </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="secondary">
+                        {user.canceled ? "Canceled" : "Active"}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="flex flex-row-reverse">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <Button size="sm" variant="secondary">
+                            <Menu size={16} />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem>
+                            <Ban className="mr-2 h-4 w-4" />
+                            <span>{user.canceled ? "Activate" : "Cancel"}</span>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </TableCell>
                   </TableRow>
                 ))}
