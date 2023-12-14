@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Typography } from "@/components/ui/typography";
 import { MarkdownProse } from "@/features/mdx/MardownProse";
 import { CourseType } from "./course.query";
-import { LessonItem } from "./lessons/[lessonId]/LessonItem";
+import { LessonItem } from "./lessons/LessonItem";
 import { SubmitButton } from "@/components/form/SubmitButton";
 import { getRequiredAuthSession } from "@/lib/auth";
 import { db } from "@/lib/prisma";
