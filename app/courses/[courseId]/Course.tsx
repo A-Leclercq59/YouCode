@@ -46,6 +46,7 @@ export const Course = ({ course, userId }: CourseProps) => {
           </CardContent>
         </Card>
         <div className="flex flex-1 max-lg:flex-row-reverse max-lg:justify-between max-[428px]:flex-col flex-col gap-4 w-full">
+          {course.isCanceled ? <p>You can&apos;t join this course.</p> : null}
           {!course.isCanceled && !course.isEnrolled && isLogin ? (
             <Card className="h-full">
               <CardHeader className="items-center">
