@@ -13,13 +13,20 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { courseActionCreate, courseActionEdit } from "./course.action";
-import { CourseFormSchema } from "./course.schema";
+import { COURSE_STATE, CourseFormSchema } from "./course.schema";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -106,6 +113,35 @@ export const CourseForm = ({ defaultValue }: CourseFormProps) => {
                 <Textarea placeholder="## Some title" {...field} />
               </FormControl>
               <FormDescription>Markdown is supported.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="state"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>State</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a state" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {COURSE_STATE.map((state) => (
+                    <SelectItem
+                      key={state}
+                      value={state}
+                      className="capitalize"
+                    >
+                      {state}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}

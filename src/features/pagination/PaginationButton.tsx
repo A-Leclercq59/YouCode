@@ -16,6 +16,7 @@ const CoursePaginationButton = (props: CoursePaginationButtonProps) => {
     <div className="flex gap-2">
       <Button
         variant="outline"
+        disabled={props.page === 0}
         size="sm"
         onClick={() => {
           const searchParams = new URLSearchParams({
@@ -30,6 +31,7 @@ const CoursePaginationButton = (props: CoursePaginationButtonProps) => {
       <Button
         variant="outline"
         size="sm"
+        disabled={props.page === props.totalPage}
         onClick={() => {
           const searchParams = new URLSearchParams({
             page: String(props.page + 1),
