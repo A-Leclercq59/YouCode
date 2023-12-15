@@ -5,13 +5,16 @@ import {
   ChangeCodeMirrorLanguage,
   ConditionalContents,
   InsertCodeBlock,
+  DiffSourceToggleWrapper,
   MDXEditor,
   ShowSandpackInfo,
   UndoRedo,
   codeBlockPlugin,
   codeMirrorPlugin,
+  diffSourcePlugin,
   headingsPlugin,
   listsPlugin,
+  linkPlugin,
   markdownShortcutPlugin,
   quotePlugin,
   thematicBreakPlugin,
@@ -32,34 +35,38 @@ export default function InitializedMDXEditor({ ...props }: MDXEditorProps) {
         quotePlugin(),
         codeBlockPlugin({ defaultCodeBlockLanguage: "js" }),
         codeMirrorPlugin({
-          codeBlockLanguages: { js: "JavaScript", css: "CSS" },
+          codeBlockLanguages: { js: "JavaScript", css: "CSS", jsx: "JSX" },
         }),
         thematicBreakPlugin(),
         markdownShortcutPlugin(),
+        diffSourcePlugin(),
+        linkPlugin(),
 
         toolbarPlugin({
           toolbarContents: () => (
-            <ConditionalContents
-              options={[
-                {
-                  when: (editor) => editor?.editorType === "codeblock",
-                  contents: () => <ChangeCodeMirrorLanguage />,
-                },
-                {
-                  when: (editor) => editor?.editorType === "sandpack",
-                  contents: () => <ShowSandpackInfo />,
-                },
-                {
-                  fallback: () => (
-                    <>
-                      <UndoRedo />
-                      <BoldItalicUnderlineToggles />
-                      <InsertCodeBlock />
-                    </>
-                  ),
-                },
-              ]}
-            />
+            <DiffSourceToggleWrapper>
+              <ConditionalContents
+                options={[
+                  {
+                    when: (editor) => editor?.editorType === "codeblock",
+                    contents: () => <ChangeCodeMirrorLanguage />,
+                  },
+                  {
+                    when: (editor) => editor?.editorType === "sandpack",
+                    contents: () => <ShowSandpackInfo />,
+                  },
+                  {
+                    fallback: () => (
+                      <>
+                        <UndoRedo />
+                        <BoldItalicUnderlineToggles />
+                        <InsertCodeBlock />
+                      </>
+                    ),
+                  },
+                ]}
+              />
+            </DiffSourceToggleWrapper>
           ),
         }),
       ]}
