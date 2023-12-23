@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  basePath: "/apps/youcode",
+  trailingSlash: true,
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

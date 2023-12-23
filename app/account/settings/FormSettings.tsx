@@ -51,9 +51,9 @@ const FormSettings = ({
     values
   ) => {
     try {
-      const result = await updateUser(values, userId);
+      const result = await updateUser({ userId: userId, data: values });
 
-      if (result.success) {
+      if (result.data?.success) {
         setIsSuccess(true);
       }
     } catch (error) {

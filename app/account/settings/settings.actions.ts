@@ -7,8 +7,13 @@ import { authenticatedAction } from "@/lib/action";
 import { db } from "@/lib/prisma";
 import { formSchemaUpdateUser } from "./updateUser.schema";
 
+const UpdateUserProps = z.object({
+  userId: z.string(),
+  data: formSchemaUpdateUser,
+});
+
 export const updateUser = authenticatedAction(
-  formSchemaUpdateUser,
+  UpdateUserProps,
   async (props, { userId }) => {
     try {
       await db.user.update({
@@ -16,8 +21,8 @@ export const updateUser = authenticatedAction(
           id: userId,
         },
         data: {
-          name: props.name,
-          image: props.image,
+          name: props.data.name,
+          image: props.data.image,
         },
       });
 
